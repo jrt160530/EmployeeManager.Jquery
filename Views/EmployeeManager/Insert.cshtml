@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script>
+
+    $(document).ready(function () {
+
+        // initialize jQuery  validation plugin on the insertForm
+        // insertForm is selected using the ID selector of jQuery (#insertForm)
+        // and the validate() method is called on it passing config details.
+        // The config details are passed through a JavaScript object literal
+        // The three main config properties used here are: rules, messages, and errorClass
+        // rules property holds a set of form fields and validation rules applied (ex-required,maxlength)
+        // message config prop sets validation error messgaes
+        // errorClass config prop indicates a CSS class to be applied to the form field in case of invalid data.
+        $("#insertform").validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    maxlength: 20
+                },
+                lastName: {
+                    required: true,
+                    maxlength: 30
+                },
+                title: {
+                    required: true,
+                    maxlength: 20
+                },
+                birthDate: "required",
+                hireDate: "required",
+                country: "required",
+                notes: {
+                    maxlength: 500
+                }
+            },
+        
+        messages: {
+            firstName: "Invalid First Name",
+            lastName: "Invalid Last Name",
+            title: "Invalid Title",
+            birthDate: "Invalid Birth Date Entered",
+            hireDate: "Invalid Hire Date Entered",
+            country: "Invalid Country Selection",
+            notes: "Invalid Notes"
+        },
+        errorClass: "message"
+        });
+
+        var options = {};
+        options.url = "/api/countries";
+        options.type = "GET";
+        options.dataType = "json";
+
+        options.beforeSend = function (request) {
+            $("h3.message").html("Wait...");
+        };
+
+       
+        
+
+        options.success = function (countries) {
+            for (var i = 0; i < countries.length; i++) {
+                $("#country").append("<option>" + countries[i].name
+                    + "</option>"); 
+            }
+            $("h3.message").html("");
+        };
+
+        options.error = function (xhr) {
+            $("h3.message").html("Error while calling the API");
+        };
+        $.ajax(options);
+
+        $("#save").click(function() {
+            if ($("insertForm").valid()) {
+                var options = {};
+                options.url = "/api/employees";
+                options.type = "POST";
+
+                var obj = {};
+                obj.firstName = $("#firstName").val();
+                obj.firstName = $("#lastName").val();
+                obj.firstName = $("#title").val();
+                obj.firstName = $("#birthDate").val();
+                obj.firstName = $("#hireDate").val();
+                obj.firstName = $("#country").val();
+                obj.firstName = $("#notes").val();
+
+                options.data = JSON.stringify(obj);
+                options.contentType = "application/json";
+
+                options.beforeSend = function (request) {
+                    $("h3.message").html("Wait...");
+                };
+                options.success = function () {
+                    $("h3.message").html("Employee Inserted Successfully");
+                };
+                options.error = function (xhr) {
+                    $("h3.message").html("Error while calling the API");
+                };
+                $.ajax(options);
+            }
+        });
+
+
+
+    });//
+</script>
+
+<h2>Insert New Employee</h2>
+
+<h3 class="message"></h3>
+
+<form id="insertForm">
+    <table border="0">
+        <tr>
+            <td>
+                <label for="firstName">First Name :</label>
+            </td>
+            <td>
+                <!--The name attribute is primarily used bu jQuery validation for validation rules
+                    id attribute primarily used by jQuery code.-->
+                <input type="text" id="firstName" name="firstName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="lastName">Last Name :</label>
+            </td>
+            <td>
+                <input type="text" id="lastName" name="lastName" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="title">Title :</label>
+            </td>
+            <td>
+                <input type="text" id="title" name="title" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="birthDate">Birth Date :</label>
+            </td>
+            <td>
+                <input type="date" id="birthDate" name="birtDate" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="hireDate">Hire Date :</label>
+            </td>
+            <td>
+                <input type="date" id="hireDate" name="hireDate" />
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="country">Country :</label>
+            </td>
+            <td>
+                <select id="country" name="country">
+                    <option value="">Please select</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right">
+                <label for="notes">Notes :</label>
+            </td>
+            <td>
+                <textarea id="notes" name="name" rows="6" col="40">
+            </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="save" type="button">Save</button>
+            </td>
+        </tr>
+
+    </table>
+</form>
