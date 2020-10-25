@@ -9,22 +9,21 @@ namespace EmployeeManager.Jquery.Models
 {
     public class Employee
     {
-        // Copied attributes from MVC project.
+        
 
-        [Column("EmployeeID")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required(ErrorMessage = "Employee ID is required")]
+        [Required]
         [Display(Name = "Employee ID")]
         public int EmployeeID { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(10)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(20)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
@@ -41,11 +40,13 @@ namespace EmployeeManager.Jquery.Models
         [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
 
+
         [Required]
-        [StringLength(15)]
+        [StringLength(50)]
         [Display(Name = "Country")]
         [Column("Country")]
         public string Country { get; set; }
+
 
         [StringLength(500)]
         [Display(Name = "Notes")]

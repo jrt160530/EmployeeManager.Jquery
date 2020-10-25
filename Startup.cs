@@ -28,7 +28,10 @@ namespace EmployeeManager.Jquery
             services.AddControllers();
             services.AddControllersWithViews();
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(this.config.GetConnectionString("AppDb")));
+            services.AddDbContext<AppDbContext>(options =>
+              options.UseSqlServer(
+                  this.config.GetConnectionString("AppDb")));
+            
          
         }
 
