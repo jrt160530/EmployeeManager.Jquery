@@ -76,8 +76,22 @@
                 options.beforeSend = function (request) {
                      $("h3.message").html("Wait...");
                 };
-                options.success = function () {
+                options.success = function (data, status, jqXHR) {
                     $("h3.message").html("Employee inserted successfully");
+                    //obj.employeeID = parseInt($("#employeeID").val());
+                    //window.location.href = jqXHR.getResponseHeader("location");
+                    alert("Employee inserted successfully");
+
+                    //console.log(jqXHR.getAllResponseHeaders("Content-Type"));
+                   // console.log(jqXHR.getResponseHeader("location"));
+                    
+                    
+                    //window.location.href = "/EmployeeManager/Update/" + data.employeeID;
+                    window.location.href = "/EmployeeManager/List";
+                   
+
+                    
+                    
                 };
                 options.error = function (xhr) {
                    

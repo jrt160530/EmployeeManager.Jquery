@@ -46,7 +46,7 @@
                 for (var i = 0; i < countries.length; i++) {
                     $("#country").append("<option>" + countries[i].name + "</option>");
                 }
-                //get one employee
+                
                 var options = {};
                 options.url = "/api/employees/" + $("#employeeID").val();
                 options.type = "GET";
@@ -75,6 +75,7 @@
                 $("h3.message").html("Error while calling the API!");
             };
             $.ajax(options);
+
             $("#save").click(function () {
                 if ($("#updateForm").valid()) {
                     var options = {};

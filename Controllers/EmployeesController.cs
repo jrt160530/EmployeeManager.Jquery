@@ -44,8 +44,10 @@ namespace EmployeeManager.Jquery.Controllers
             {
                 await db.Employees.AddAsync(emp);
                 await db.SaveChangesAsync();
-               
-                return CreatedAtAction("Get", new { id = emp.EmployeeID }, emp);
+
+                var createdEmp = await db.Employees.FindAsync(emp.EmployeeID);
+
+                return CreatedAtAction("Get", new { id = emp.EmployeeID }, createdEmp);
             }
             else
             {
