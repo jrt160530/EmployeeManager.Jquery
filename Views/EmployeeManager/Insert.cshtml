@@ -1,5 +1,8 @@
 ﻿<script>
     $(document).ready(function () {
+
+        $('#birthDate').val(new Date().toISOString().slice(0, 10));
+        $('#hireDate').val(new Date().toISOString().slice(0, 10));
         
         $("#insertForm").validate({
             rules: {
